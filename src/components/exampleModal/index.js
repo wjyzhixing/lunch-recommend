@@ -28,10 +28,10 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
     <Form
       name="basic"
       labelCol={{
-        span: 6,
+        span: 8,
       }}
       wrapperCol={{
-        span: 18,
+        span: 16,
       }}
       initialValues={{
         remember: true,
@@ -41,7 +41,7 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
       autoComplete="off"
     >
       <Row>
-        <Col span={6}>
+        <Col span={4}>
           <Form.Item
             label="食物"
             name="food"
@@ -55,7 +55,7 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={6}>
+        <Col span={4}>
           <Form.Item
             label="次数"
             name="times"
@@ -89,12 +89,11 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
             <Rate />
           </Form.Item>
         </Col>
-        <Col span={7}>
+        <Col span={8}>
           <Form.Item
-          // wrapperCol={{
-          //   offset: 0,
-          //   span: 1,
-          // }}
+            labelCol={{
+              span: 24,
+            }}
           >
             <Button
               type="primary"

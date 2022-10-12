@@ -3,6 +3,8 @@ import { Table, Button, Popconfirm, message } from 'antd';
 import ExampleModal from '@/components/exampleModal/index';
 import ChangeModal from '@/components/changeModal/index';
 import RandomModal from '@/components/randomModal/index';
+import LoginModal from '@/components/loginModal/index';
+
 import { connect } from 'umi';
 import styles from './index.less';
 // import solarLunar from 'solarLunar';
@@ -12,16 +14,18 @@ function IndexPage(props: any) {
   const [dataSource, setDataSource] = useState([]);
   const [changeVisiable, setChangeVisiable] = useState(false);
   const [randomVisiable, setRandomVisiable] = useState(false);
+  const [loginVisiable, setLoginVisiable] = useState(true);
   const [obj, setObj] = useState({});
   const [title, setTitle] = useState('');
-  const { dispatch } = props;
-
+  const [userlog, setUserlog] = useState(null);
+  const { dispatch, user } = props;
+  console.log(user, 'user')
   const columns = [
-    {
-      title: 'id',
-      dataIndex: '_id',
-      key: 'id',
-    },
+    // {
+    //   title: 'id',
+    //   dataIndex: '_id',
+    //   key: 'id',
+    // },
     {
       title: '吃饭名称',
       dataIndex: 'food',
@@ -67,9 +71,10 @@ function IndexPage(props: any) {
                 type: 'example/deleteMyWifeFood',
                 payload: {
                   id: record?._id,
+                  username: userlog,
                 },
               }).then(res => {
-                initQuery();
+                initQuery(String(userlog));
               });
             }}
             okText="是"
@@ -85,12 +90,19 @@ function IndexPage(props: any) {
   ];
 
   useEffect(() => {
-    initQuery();
+    // initQuery();
+    return () => {
+      console.log(1)
+      sessionStorage.clear();
+    }
   }, []);
 
-  const initQuery = () => {
+  const initQuery = (username: String) => {
     dispatch({
       type: 'example/getMyWifeFood',
+      payload: {
+        username: username || userlog
+      }
     }).then((res: { data: any }) => {
       const { data } = res;
       setDataSource(data);
@@ -102,13 +114,16 @@ function IndexPage(props: any) {
       type: 'example/addMyWifeFood',
       payload: {
         ...values,
+        user: userlog,
       },
     }).then((res: any) => {
       console.log(res);
       if (res?.code === 0) {
-        initQuery();
+        initQuery(user?.username);
       } else {
-        message.info(res?.message)
+        if (res) {
+          message.info(res?.message)
+        }
       }
     });
   };
@@ -117,13 +132,16 @@ function IndexPage(props: any) {
     dispatch({
       type: 'example/recommendMyWifeFood',
       payload: {
+        user: userlog,
       },
     }).then((res: any) => {
       console.log(res);
       if (res?.code === 0) {
         message.success({ content: `今天推荐来吃${res?.data || '鸡腿'}!`, key: 'key！', duration: 2 });
       } else {
-        message.info(res?.message)
+        if (res) {
+          message.info(res?.message)
+        }
       }
     });
   }
@@ -158,13 +176,22 @@ function IndexPage(props: any) {
           visiable={randomVisiable}
           close={() => setRandomVisiable(false)}
           title={title}
+          userlog={userlog}
         />
       )}
-
+      {loginVisiable && (
+        <LoginModal
+          visiable={loginVisiable}
+          close={() => setLoginVisiable(false)}
+          initQuery={initQuery}
+          setUserlog={setUserlog}
+        />
+      )}
     </div>
   );
 }
 
-export default connect(({ example }) => ({
+export default connect(({ example, user }) => ({
   example,
+  user,
 }))(IndexPage);

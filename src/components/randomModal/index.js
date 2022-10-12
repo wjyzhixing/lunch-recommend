@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { getRandomFoodList, updateRandomFoodList } from '@/services/example';
 import { connect } from 'umi';
 
-const RandomModal = ({ visiable, close, obj, title, example }) => {
+const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(false);
@@ -46,17 +46,19 @@ const RandomModal = ({ visiable, close, obj, title, example }) => {
           duration: 2,
         });
       } else {
-        message.info({
-          content: `是不是忘了打逗号啊!`,
-          key: 'error',
-          duration: 2,
-        });
+        if (res) {
+          message.info({
+            content: `是不是忘了打逗号啊!`,
+            key: 'error',
+            duration: 2,
+          });
+        }
       }
     });
   };
 
   const getRandomFoodListFunc = () => {
-    getRandomFoodList().then((res) => {
+    getRandomFoodList({ user: userlog }).then((res) => {
       console.log(res);
       if (res?.result === 'success') {
         setShow(true);
@@ -68,11 +70,13 @@ const RandomModal = ({ visiable, close, obj, title, example }) => {
   };
 
   const changeList = () => {
-    updateRandomFoodList(form.getFieldsValue()).then((res) => {
-      if (res?.result === 'success') {
-        message.success('修改成功！');
-      }
-    });
+    updateRandomFoodList({ ...form.getFieldsValue(), user: userlog }).then(
+      (res) => {
+        if (res?.result === 'success') {
+          message.success('修改成功！');
+        }
+      },
+    );
   };
   return (
     <Modal
