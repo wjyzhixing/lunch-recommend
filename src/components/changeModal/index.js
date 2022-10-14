@@ -4,7 +4,14 @@ import solarLunar from 'solarLunar';
 import moment from 'moment';
 import { connect } from 'umi';
 
-const ChangeModal = ({ visiable, close, obj, dispatch, initQuery }) => {
+const ChangeModal = ({
+  visiable,
+  close,
+  obj,
+  dispatch,
+  initQuery,
+  userlog,
+}) => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -25,7 +32,7 @@ const ChangeModal = ({ visiable, close, obj, dispatch, initQuery }) => {
             id: obj?._id,
           },
         }).then(() => {
-          initQuery();
+          initQuery(userlog);
           setIsModalVisible(false);
           close();
         });
@@ -48,6 +55,7 @@ const ChangeModal = ({ visiable, close, obj, dispatch, initQuery }) => {
       title="修改信息"
       //   onOk={handleOk}
       onCancel={handleCancel}
+      destroyOnClose
       footer={[
         <Button type="primary" onClick={() => handleOk()} key="change">
           修改

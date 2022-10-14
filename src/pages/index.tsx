@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Table, Button, Popconfirm, message } from 'antd';
+import { Table, Button, Popconfirm, message, Rate } from 'antd';
 import ExampleModal from '@/components/exampleModal/index';
 import ChangeModal from '@/components/changeModal/index';
 import RandomModal from '@/components/randomModal/index';
@@ -18,6 +18,7 @@ function IndexPage(props: any) {
   const [obj, setObj] = useState({});
   const [title, setTitle] = useState('');
   const [userlog, setUserlog] = useState(null);
+  const [key, setKey] = useState(1);
   const { dispatch, user } = props;
   console.log(user, 'user')
   const columns = [
@@ -49,6 +50,7 @@ function IndexPage(props: any) {
       dataIndex: 'love',
       key: 'love',
       sorter: (a, b) => a.love - b.love,
+      render: text => <Rate value={text} disabled />
     },
     {
       title: '操作',
@@ -104,8 +106,8 @@ function IndexPage(props: any) {
         username: username || userlog
       }
     }).then((res: { data: any }) => {
-      const { data } = res;
-      setDataSource(data);
+      setKey(key + 1)
+      setDataSource(res?.data || []);
     });
   };
 
@@ -160,7 +162,10 @@ function IndexPage(props: any) {
       </div>
       <ExampleModal onSubmit={onSubmit} onRandom={onRandom} openModal={openModal} />
       <div className={styles.table}>
-        <Table dataSource={dataSource} columns={columns} rowKey="_id" />
+        <Table dataSource={dataSource} key={key} columns={columns} rowKey="_id" />
+      </div>
+      <div className={styles.fix}>
+        版权所有 &copy;2022 wjy. All rights reserved.
       </div>
       {changeVisiable && (
         <ChangeModal
@@ -169,6 +174,7 @@ function IndexPage(props: any) {
           obj={obj}
           initQuery={initQuery}
           title={title}
+          userlog={userlog}
         />
       )}
       {randomVisiable && (

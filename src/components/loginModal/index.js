@@ -82,7 +82,10 @@ const LoginModal = ({
       visible={isModalVisible}
       title={log ? '登录' : '注册'}
       onCancel={handleCancel}
+      maskClosable={false}
       footer={null}
+      closable={false}
+      closeIcon={null}
       destroyOnClose
     >
       <div style={{ margin: '20px 0px' }}>
@@ -124,6 +127,18 @@ const LoginModal = ({
               ]}
             >
               <Input placeholder="想个密码呗~" />
+            </Form.Item>
+            <Form.Item
+              label="注册邮箱"
+              name="email"
+              rules={[
+                {
+                  required: false,
+                  message: '输入个邮箱嘞!',
+                },
+              ]}
+            >
+              <Input placeholder="可以输入个邮箱注册~" />
             </Form.Item>
             <div style={{ marginLeft: '190px' }}>
               <Button
