@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as echarts from 'echarts/core';
 import * as ChartComponent from 'echarts/components';
 import * as Chart from 'echarts/charts';
