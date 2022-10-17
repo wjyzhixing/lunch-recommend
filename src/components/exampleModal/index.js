@@ -41,7 +41,7 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
       autoComplete="off"
     >
       <Row>
-        <Col span={4}>
+        <Col xs={12} sm={8} md={8} lg={4} xl={4}>
           <Form.Item
             label="食物"
             name="food"
@@ -55,7 +55,7 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col span={4}>
+        <Col xs={12} sm={8} md={8} lg={4} xl={4}>
           <Form.Item
             label="次数"
             name="times"
@@ -69,7 +69,7 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
             <InputNumber min={0} style={{ width: '100%' }} />
           </Form.Item>
         </Col>
-        <Col span={5}>
+        <Col xs={24} sm={8} md={8} lg={5} xl={5}>
           <Form.Item
             label="喜爱程度"
             name="love"
@@ -89,7 +89,14 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
             <Rate />
           </Form.Item>
         </Col>
-        <Col span={8}>
+        <Col
+          xs={24}
+          sm={24}
+          md={24}
+          lg={10}
+          xl={10}
+          style={{ textAlign: 'center' }}
+        >
           <Form.Item
             labelCol={{
               span: 24,
