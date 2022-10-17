@@ -4,6 +4,7 @@ import ExampleModal from '@/components/exampleModal/index';
 import ChangeModal from '@/components/changeModal/index';
 import RandomModal from '@/components/randomModal/index';
 import LoginModal from '@/components/loginModal/index';
+import LineChart from '@/components/lineChart/index';
 
 import { connect } from 'umi';
 import styles from './index.less';
@@ -163,6 +164,10 @@ function IndexPage(props: any) {
       <ExampleModal onSubmit={onSubmit} onRandom={onRandom} openModal={openModal} />
       <div className={styles.table}>
         <Table dataSource={dataSource} key={key} columns={columns} rowKey="_id" />
+      </div>
+      <div style={{ paddingBottom: 50 }}>
+        <div className={styles.title}>已有餐饮类型分析图</div>
+        <LineChart id={"foodLine"} data={dataSource} />
       </div>
       <div className={styles.fix}>
         版权所有 &copy;2022 wjy. All rights reserved.
