@@ -261,7 +261,7 @@ function IndexPage(props) {
       </div>
       <div style={{ paddingBottom: 50, margin: '0 auto' }}>
         <div className={styles.title} onClick={() => download()}>
-          保存我们的二维码
+          保存我们的二维码！
         </div>
         <div style={{ textAlign: 'center' }}>
           <QRCode
