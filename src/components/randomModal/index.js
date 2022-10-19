@@ -35,7 +35,7 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
   const choose = () => {
     form.validateFields().then((res) => {
       console.log(res);
-      if (res?.food?.includes('，')) {
+      if (res?.food?.includes('，') && String(res?.food).trim() !== '') {
         const list = res?.food?.split('，');
         console.log(res);
         console.log(list);
@@ -70,13 +70,18 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
   };
 
   const changeList = () => {
-    updateRandomFoodList({ ...form.getFieldsValue(), user: userlog }).then(
-      (res) => {
-        if (res?.result === 'success') {
-          message.success('修改成功！');
-        }
-      },
-    );
+    const food = form.getFieldsValue()?.food;
+    if (food?.includes('，') && String(food).trim() !== '') {
+      updateRandomFoodList({ ...form.getFieldsValue(), user: userlog }).then(
+        (res) => {
+          if (res?.result === 'success') {
+            message.success('修改成功！');
+          }
+        },
+      );
+    } else {
+      message.info('请检查食物列表的格式哈');
+    }
   };
   return (
     <Modal
