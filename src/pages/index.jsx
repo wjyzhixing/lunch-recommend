@@ -256,6 +256,11 @@ function IndexPage(props) {
       />
       <div className={styles.table}>
         <Table
+          locale={{
+            cancelSort: '点击取消排序',
+            triggerAsc: '点击升序',
+            triggerDesc: '点击降序',
+          }}
           dataSource={dataSource}
           key={key}
           columns={columns}
