@@ -1,4 +1,4 @@
-import { Form, Input, Button, Modal, InputNumber, Rate } from 'antd';
+import { Form, Input, Button, Modal, InputNumber, Rate, message } from 'antd';
 import { useEffect, useState } from 'react';
 import solarLunar from 'solarLunar';
 import moment from 'moment';
@@ -31,10 +31,15 @@ const ChangeModal = ({
             ...values,
             id: obj?._id,
           },
-        }).then(() => {
-          initQuery(userlog);
-          setIsModalVisible(false);
-          close();
+        }).then((res) => {
+          if (res?.result === 'success' && res?.code === 0) {
+            message.success('修改成功~');
+            initQuery(userlog);
+            setIsModalVisible(false);
+            close();
+          } else {
+            message.error('修改失败，请稍后再试');
+          }
         });
       })
       .catch((err) => {

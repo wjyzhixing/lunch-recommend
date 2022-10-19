@@ -12,7 +12,7 @@
 
 # misc
 .DS_Store
-
+.VSCodeCounter/*
 # umi
 /src/.umi
 /src/.umi-production

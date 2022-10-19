@@ -80,7 +80,12 @@ function IndexPage(props) {
                   username: userlog,
                 },
               }).then((res) => {
-                initQuery(String(userlog));
+                if (res?.result === 'success' && res?.code === 0) {
+                  message.success('删除成功~');
+                  initQuery(String(userlog));
+                } else {
+                  message.error('删除失败，请稍后再试');
+                }
               });
             }}
             okText="是"
@@ -162,7 +167,7 @@ function IndexPage(props) {
     });
   }
 
-  const onSubmit = (values) => {
+  const onSubmit = (values, form) => {
     dispatch({
       type: 'example/addMyWifeFood',
       payload: {
@@ -172,6 +177,8 @@ function IndexPage(props) {
     }).then((res) => {
       console.log(res);
       if (res?.code === 0) {
+        form.resetFields();
+        message.success('添加成功~');
         initQuery(user?.username);
       } else {
         if (res) {

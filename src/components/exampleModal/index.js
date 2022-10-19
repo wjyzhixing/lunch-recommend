@@ -10,9 +10,10 @@ import {
 } from 'antd';
 
 const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
+  const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log('Success:', values);
-    onSubmit(values);
+    onSubmit(values, form);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -26,6 +27,7 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
 
   return (
     <Form
+      form={form}
       name="basic"
       labelCol={{
         span: 8,
