@@ -1,9 +1,18 @@
-import { Form, Input, Button, Modal, InputNumber, Rate, message } from 'antd';
+import {
+  Form,
+  Input,
+  Button,
+  Modal,
+  InputNumber,
+  Rate,
+  message,
+  Select,
+} from 'antd';
 import { useEffect, useState } from 'react';
 import solarLunar from 'solarLunar';
 import moment from 'moment';
 import { connect } from 'umi';
-
+const { Option } = Select;
 const ChangeModal = ({
   visiable,
   close,
@@ -106,7 +115,23 @@ const ChangeModal = ({
         >
           <InputNumber min={0} style={{ width: '100%' }} />
         </Form.Item>
-
+        <Form.Item
+          label="哪餐"
+          name="whichTime"
+          rules={[
+            {
+              required: true,
+              message: '选择哪一顿吃哈!',
+            },
+          ]}
+        >
+          <Select>
+            <Option value="早餐">早餐</Option>
+            <Option value="午餐">午餐</Option>
+            <Option value="晚餐">晚餐</Option>
+            <Option value="全部">全部</Option>
+          </Select>
+        </Form.Item>
         <Form.Item
           label="喜爱程度"
           name="love"

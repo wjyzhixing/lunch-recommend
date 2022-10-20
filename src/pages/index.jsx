@@ -57,6 +57,11 @@ function IndexPage(props) {
       render: (text) => <Rate value={text} disabled />,
     },
     {
+      title: '哪餐',
+      dataIndex: 'whichTime',
+      key: 'whichTime',
+    },
+    {
       title: '操作',
       dataIndex: 'operation',
       render: (text, record, index) => (

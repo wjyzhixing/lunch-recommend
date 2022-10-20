@@ -6,11 +6,18 @@ import {
   Col,
   InputNumber,
   Rate,
+  Select,
   message,
 } from 'antd';
-
+import { useEffect } from 'react';
+const { Option } = Select;
 const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
   const [form] = Form.useForm();
+  // useEffect(() => {
+  //   form.setFieldsValue({
+  //     whitch
+  //   })
+  // },[])
   const onFinish = (values) => {
     console.log('Success:', values);
     onSubmit(values, form);
@@ -36,14 +43,14 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
         span: 16,
       }}
       initialValues={{
-        remember: true,
+        whichTime: '全部',
       }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
     >
       <Row>
-        <Col xs={12} sm={8} md={8} lg={4} xl={4}>
+        <Col xs={12} sm={8} md={8} lg={4} xl={5}>
           <Form.Item
             label="食物"
             name="food"
@@ -57,7 +64,7 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
             <Input />
           </Form.Item>
         </Col>
-        <Col xs={12} sm={8} md={8} lg={4} xl={4}>
+        <Col xs={12} sm={8} md={8} lg={4} xl={5}>
           <Form.Item
             label="次数"
             name="times"
@@ -71,7 +78,26 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
             <InputNumber min={0} style={{ width: '100%' }} />
           </Form.Item>
         </Col>
-        <Col xs={24} sm={8} md={8} lg={5} xl={5}>
+        <Col xs={12} sm={8} md={8} lg={4} xl={5}>
+          <Form.Item
+            label="哪餐"
+            name="whichTime"
+            rules={[
+              {
+                required: true,
+                message: '选择哪一顿吃哈!',
+              },
+            ]}
+          >
+            <Select>
+              <Option value="早餐">早餐</Option>
+              <Option value="午餐">午餐</Option>
+              <Option value="晚餐">晚餐</Option>
+              <Option value="全部">全部</Option>
+            </Select>
+          </Form.Item>
+        </Col>
+        <Col xs={24} sm={8} md={8} lg={5} xl={6}>
           <Form.Item
             label="喜爱程度"
             name="love"
@@ -91,16 +117,21 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
             <Rate />
           </Form.Item>
         </Col>
-        <Col
-          xs={24}
-          sm={24}
-          md={24}
-          lg={10}
-          xl={10}
-          style={{ textAlign: 'center' }}
-        >
+        {/* <Col span={2}>
+          <Button type="primary" danger shape="round" onClick={random}>
+            推荐一个!
+          </Button>
+        </Col>
+        <Col span={1}>
+          <Button type="primary" danger shape="round" onClick={random}>
+            随机一个!
+          </Button>
+        </Col> */}
+      </Row>
+      <Row>
+        <Col span={21} style={{ textAlign: 'right' }}>
           <Form.Item
-            labelCol={{
+            wrapperCol={{
               span: 24,
             }}
           >
@@ -126,16 +157,6 @@ const ExampleModal = ({ onSubmit, onRandom, openModal }) => {
             </Button>
           </Form.Item>
         </Col>
-        {/* <Col span={2}>
-          <Button type="primary" danger shape="round" onClick={random}>
-            推荐一个!
-          </Button>
-        </Col>
-        <Col span={1}>
-          <Button type="primary" danger shape="round" onClick={random}>
-            随机一个!
-          </Button>
-        </Col> */}
       </Row>
     </Form>
   );
