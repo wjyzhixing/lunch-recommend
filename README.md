@@ -10,6 +10,14 @@
 
 最后，在注册时候时候如果您想要获得想吃什么的邮件提醒，可以选择输入邮箱地址，我们将在每天的11:30和17:30进行邮件推送！
 
+
+## lunch-recommend
+这是lunch-recommend项目的前端代码，后端代码请移步到：
+
+```
+https://github.com/wjyzhixing/lunch-recommend-backend/
+```
+
 ## 项目功能
 
 <img width="605" alt="image" src="https://user-images.githubusercontent.com/36620969/196635055-3952f131-5a1d-497a-9626-f14dec399c44.png">
