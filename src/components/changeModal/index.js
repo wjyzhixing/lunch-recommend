@@ -20,6 +20,7 @@ const ChangeModal = ({
   dispatch,
   initQuery,
   userlog,
+  title,
 }) => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -34,27 +35,49 @@ const ChangeModal = ({
       .validateFields()
       .then((values) => {
         console.log(values);
-        dispatch({
-          type: 'example/updateMyWifeFood',
-          payload: {
-            ...values,
-            id: obj?._id,
-          },
-        }).then((res) => {
-          if (res?.result === 'success' && res?.code === 0) {
-            message.success('修改成功~');
-            initQuery(userlog);
-            setIsModalVisible(false);
-            close();
-          } else {
-            message.error('修改失败，请稍后再试');
-          }
-        });
+        if (title === '添加一个') {
+          dispatch({
+            type: 'example/addMyWifeFood',
+            payload: {
+              ...values,
+              user: userlog,
+            },
+          }).then((res) => {
+            console.log(res);
+            if (res?.code === 0) {
+              form.resetFields();
+              message.success('添加成功~');
+              initQuery(userlog);
+              setIsModalVisible(false);
+              close();
+            } else {
+              if (res) {
+                message.info(res?.message);
+              }
+            }
+          });
+        } else {
+          dispatch({
+            type: 'example/updateMyWifeFood',
+            payload: {
+              ...values,
+              id: obj?._id,
+            },
+          }).then((res) => {
+            if (res?.result === 'success' && res?.code === 0) {
+              message.success('修改成功~');
+              initQuery(userlog);
+              setIsModalVisible(false);
+              close();
+            } else {
+              message.error('修改失败，请稍后再试');
+            }
+          });
+        }
       })
       .catch((err) => {
         console.log(err);
       });
-
     // onSubmit(values);
   };
 
@@ -66,13 +89,13 @@ const ChangeModal = ({
   return (
     <Modal
       visible={isModalVisible}
-      title="修改信息"
+      title={title || '修改信息'}
       //   onOk={handleOk}
       onCancel={handleCancel}
       destroyOnClose
       footer={[
         <Button type="primary" onClick={() => handleOk()} key="change">
-          修改
+          {title ? '添加' : '修改'}
         </Button>,
       ]}
     >
@@ -80,7 +103,7 @@ const ChangeModal = ({
         name="basic"
         form={form}
         labelCol={{
-          span: 8,
+          span: 7,
         }}
         wrapperCol={{
           span: 14,

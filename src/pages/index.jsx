@@ -35,6 +35,7 @@ function IndexPage(props) {
       title: '吃饭名称',
       dataIndex: 'food',
       key: 'food',
+      // width: 300,
       onFilter: (value, record) => record.food.indexOf(value) === 0,
       filters: dataSource.map((i) => {
         return {
@@ -47,12 +48,14 @@ function IndexPage(props) {
       title: '已吃次数',
       dataIndex: 'times',
       key: 'times',
+      width: 300,
       sorter: (a, b) => a.times - b.times,
     },
     {
       title: '喜爱程度',
       dataIndex: 'love',
       key: 'love',
+      width: 300,
       sorter: (a, b) => a.love - b.love,
       render: (text) => <Rate value={text} disabled />,
     },
@@ -60,10 +63,12 @@ function IndexPage(props) {
       title: '哪餐',
       dataIndex: 'whichTime',
       key: 'whichTime',
+      width: 300,
     },
     {
       title: '操作',
       dataIndex: 'operation',
+      width: 300,
       render: (text, record, index) => (
         <>
           <Button
@@ -174,17 +179,16 @@ function IndexPage(props) {
 
   const onSubmit = (values, form) => {
     dispatch({
-      type: 'example/addMyWifeFood',
+      type: 'example/getMyWifeFood',
       payload: {
         ...values,
-        user: userlog,
+        username: userlog,
       },
     }).then((res) => {
       console.log(res);
       if (res?.code === 0) {
-        form.resetFields();
-        message.success('添加成功~');
-        initQuery(user?.username);
+        message.success('查询成功~');
+        setDataSource(res?.data || []);
       } else {
         if (res) {
           message.info(res?.message);
@@ -258,6 +262,8 @@ function IndexPage(props) {
         onSubmit={onSubmit}
         onRandom={onRandom}
         openModal={openModal}
+        initQuery={initQuery}
+        userlog={userlog}
       />
       <div className={styles.table}>
         <Table
@@ -270,6 +276,9 @@ function IndexPage(props) {
           key={key}
           columns={columns}
           rowKey="_id"
+          scroll={{
+            x: 1300,
+          }}
         />
       </div>
       <div style={{ paddingBottom: 10 }}>
