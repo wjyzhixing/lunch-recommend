@@ -57,6 +57,7 @@ const ExampleModal = ({
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        size={window.screen.width < 500 ? 'small' : 'middle'}
       >
         <Row>
           <Col xs={12} sm={8} md={8} lg={4} xl={5}>
@@ -149,7 +150,9 @@ const ExampleModal = ({
                 shape="round"
                 htmlType="submit"
                 style={{ marginRight: 10 }}
+                size={window.screen.width < 500 ? 'small' : 'middle'}
               >
+                {/* window.screen */}
                 查询
               </Button>
               <Button
@@ -157,6 +160,7 @@ const ExampleModal = ({
                 shape="round"
                 onClick={() => setChangeVisiable(true)}
                 style={{ marginRight: 10 }}
+                size={window.screen.width < 500 ? 'small' : 'middle'}
               >
                 加一个！
               </Button>
@@ -166,10 +170,17 @@ const ExampleModal = ({
                 shape="round"
                 onClick={random}
                 style={{ marginRight: 10 }}
+                size={window.screen.width < 500 ? 'small' : 'middle'}
               >
                 推荐一个!
               </Button>
-              <Button type="primary" danger shape="round" onClick={openModal}>
+              <Button
+                type="primary"
+                danger
+                shape="round"
+                onClick={openModal}
+                size={window.screen.width < 500 ? 'small' : 'middle'}
+              >
                 随机一个!
               </Button>
             </Form.Item>

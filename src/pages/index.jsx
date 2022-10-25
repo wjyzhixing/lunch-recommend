@@ -77,6 +77,7 @@ function IndexPage(props) {
               setChangeVisiable(true);
               setObj(record);
             }}
+            size={window.screen.width < 500 ? 'small' : 'middle'}
           >
             修改
           </Button>
@@ -277,7 +278,7 @@ function IndexPage(props) {
           columns={columns}
           rowKey="_id"
           scroll={{
-            x: 1300,
+            x: 1500,
           }}
         />
       </div>

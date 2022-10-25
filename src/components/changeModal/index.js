@@ -94,7 +94,12 @@ const ChangeModal = ({
       onCancel={handleCancel}
       destroyOnClose
       footer={[
-        <Button type="primary" onClick={() => handleOk()} key="change">
+        <Button
+          type="primary"
+          onClick={() => handleOk()}
+          key="change"
+          size={window.screen.width < 500 ? 'small' : 'middle'}
+        >
           {title ? '添加' : '修改'}
         </Button>,
       ]}

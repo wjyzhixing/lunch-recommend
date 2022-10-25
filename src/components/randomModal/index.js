@@ -92,10 +92,19 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
       destroyOnClose
     >
       <div style={{ display: 'flex' }}>
-        <Button style={{ marginRight: 20 }} onClick={randomList}>
+        <Button
+          style={{ marginRight: 20 }}
+          onClick={randomList}
+          size={window.screen.width < 500 ? 'small' : 'middle'}
+        >
           真·随机选一个！
         </Button>
-        <Button onClick={() => getRandomFoodListFunc()}>我要重新筛！</Button>
+        <Button
+          onClick={() => getRandomFoodListFunc()}
+          size={window.screen.width < 500 ? 'small' : 'middle'}
+        >
+          我要重新筛！
+        </Button>
       </div>
       <div style={{ margin: '20px 0px' }}>
         {show && (
@@ -112,6 +121,7 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
               ...obj,
             }}
             autoComplete="off"
+            size={window.screen.width < 500 ? 'small' : 'middle'}
           >
             <Form.Item
               label="打个食物列表吧"
@@ -129,10 +139,15 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
               type="primary"
               onClick={choose}
               style={{ marginRight: '30px' }}
+              size={window.screen.width < 500 ? 'small' : 'middle'}
             >
               选！
             </Button>
-            <Button type="primary" onClick={changeList}>
+            <Button
+              type="primary"
+              onClick={changeList}
+              size={window.screen.width < 500 ? 'small' : 'middle'}
+            >
               修改一下备用列表！
             </Button>
           </Form>

@@ -97,7 +97,7 @@ const LoginModal = ({
               span: 6,
             }}
             wrapperCol={{
-              span: 14,
+              span: 17,
             }}
             initialValues={{
               ...obj,
@@ -140,11 +140,12 @@ const LoginModal = ({
             >
               <Input placeholder="可以输入个邮箱注册~" />
             </Form.Item>
-            <div style={{ marginLeft: '190px' }}>
+            <div style={{ textAlign: 'right' }}>
               <Button
                 type="primary"
                 onClick={choose}
                 style={{ marginRight: '30px' }}
+                size={window.screen.width < 500 ? 'small' : 'middle'}
               >
                 登录！
               </Button>
@@ -152,6 +153,7 @@ const LoginModal = ({
                 type="primary"
                 onClick={chooseRegistry}
                 style={{ marginRight: '30px' }}
+                size={window.screen.width < 500 ? 'small' : 'middle'}
               >
                 直接注册！
               </Button>
