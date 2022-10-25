@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Table, Button, Popconfirm, message, Rate } from 'antd';
+import { Table, Button, Popconfirm, message, Rate, Tag } from 'antd';
 import ExampleModal from '@/components/exampleModal/index';
 import ChangeModal from '@/components/changeModal/index';
 import RandomModal from '@/components/randomModal/index';
@@ -43,6 +43,14 @@ function IndexPage(props) {
           value: i.food,
         };
       }),
+      render: (text, record) => (
+        <div>
+          <div style={{ display: 'inline-block', marginRight: 10 }}>{text}</div>
+          {record?.ifExpensive ? (
+            <Tag color="#2db7f5">{record?.ifExpensive}</Tag>
+          ) : null}
+        </div>
+      ),
     },
     {
       title: '已吃次数',
@@ -63,12 +71,12 @@ function IndexPage(props) {
       title: '哪餐',
       dataIndex: 'whichTime',
       key: 'whichTime',
-      width: 300,
+      width: 200,
     },
     {
       title: '操作',
       dataIndex: 'operation',
-      width: 300,
+      width: 400,
       render: (text, record, index) => (
         <>
           <Button
@@ -76,11 +84,50 @@ function IndexPage(props) {
             onClick={() => {
               setChangeVisiable(true);
               setObj(record);
+              setTitle('修改');
             }}
             size={window.screen.width < 500 ? 'small' : 'middle'}
           >
             修改
           </Button>
+          <Button
+            type="link"
+            onClick={() => {
+              setChangeVisiable(true);
+              setObj(record);
+              setTitle('打标签');
+            }}
+            size={window.screen.width < 500 ? 'small' : 'middle'}
+          >
+            打标签
+          </Button>
+          <Popconfirm
+            title="是否确认删除?"
+            onConfirm={() => {
+              dispatch({
+                type: 'example/deleteTag',
+                payload: {
+                  id: record?._id,
+                },
+              }).then((res) => {
+                if (res?.result === 'success' && res?.code === 0) {
+                  message.success('删除成功~');
+                  initQuery(String(userlog));
+                } else {
+                  message.error('删除失败，请稍后再试');
+                }
+              });
+            }}
+            okText="是"
+            cancelText="否"
+          >
+            <Button
+              type="link"
+              size={window.screen.width < 500 ? 'small' : 'middle'}
+            >
+              删除标签
+            </Button>
+          </Popconfirm>
           <Popconfirm
             title="是否确认删除?"
             onConfirm={() => {
@@ -102,8 +149,12 @@ function IndexPage(props) {
             okText="是"
             cancelText="否"
           >
-            {' '}
-            <a>删除</a>
+            <Button
+              type="link"
+              size={window.screen.width < 500 ? 'small' : 'middle'}
+            >
+              删除
+            </Button>
           </Popconfirm>
         </>
       ),

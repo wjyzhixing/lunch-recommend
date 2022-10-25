@@ -4,6 +4,7 @@ import {
   deleteMyWifeFood,
   updateMyWifeFood,
   recommendMyWifeFood,
+  deleteTag,
 } from '@/services/example';
 
 export default {
@@ -37,6 +38,11 @@ export default {
     // 算法推荐吃的食物
     *recommendMyWifeFood({ payload }, { call }) {
       const res = yield call(recommendMyWifeFood, payload);
+      return res;
+    },
+    // 删除标签
+    *deleteTag({ payload }, { call }) {
+      const res = yield call(deleteTag, payload);
       return res;
     },
   },
