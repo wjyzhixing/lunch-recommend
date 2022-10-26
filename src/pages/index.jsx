@@ -10,7 +10,11 @@ import {
   Menu,
 } from 'antd';
 import 'antd/dist/antd.css';
-import { SettingOutlined } from '@ant-design/icons';
+import {
+  SettingOutlined,
+  LogoutOutlined,
+  LoginOutlined,
+} from '@ant-design/icons';
 
 import ExampleModal from '@/components/exampleModal/index';
 import ChangeModal from '@/components/changeModal/index';
@@ -328,6 +332,18 @@ function IndexPage(props) {
   };
   // const getconclusion = () => {
   // };
+  const log = () => {
+    sessionStorage.clear();
+    setDataSource([]);
+    setLoginVisiable(true);
+    setUserlog(null);
+    dispatch({
+      type: 'user/update',
+      username: '',
+      id: '',
+    });
+    userlog ? message.success('退出成功') : null;
+  };
 
   return (
     <Layout className={styles.root}>
@@ -351,15 +367,30 @@ function IndexPage(props) {
             )}
           </div>
           <div style={{ textAlign: 'right' }}>
-            <span style={{ color: 'yellow', alignItems: 'center' }}>
+            <span
+              style={{ color: 'yellow', alignItems: 'center', fontSize: 18 }}
+            >
               {userlog && `${userlog}您好`}
             </span>
             <Button
               type="link"
-              style={{ color: '#fff', alignItems: 'center' }}
+              style={{ color: '#fff', alignItems: 'center', marginRight: 5 }}
+              shape="circle"
               onClick={() => setInfoVisiable(true)}
             >
               <SettingOutlined style={{ fontSize: 20 }} />
+            </Button>
+            <Button
+              type="link"
+              style={{ color: '#fff', alignItems: 'center', marginRight: 5 }}
+              shape="circle"
+              onClick={() => log()}
+            >
+              {userlog ? (
+                <LogoutOutlined style={{ fontSize: 20 }} />
+              ) : (
+                <LoginOutlined style={{ fontSize: 20 }} />
+              )}
             </Button>
           </div>
         </div>
