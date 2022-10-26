@@ -20,10 +20,11 @@ const ChangeModal = ({
   initQuery,
   userlog,
   title,
+  user,
 }) => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  console.log(user);
   useEffect(() => {
     setIsModalVisible(visiable);
     console.log(obj);
@@ -108,7 +109,7 @@ const ChangeModal = ({
           key="change"
           size={window.screen.width < 500 ? 'small' : 'middle'}
         >
-          {title ? '添加' : '修改'}
+          {title === '添加一个' ? '添加' : '修改'}
         </Button>,
       ]}
     >
@@ -210,6 +211,7 @@ const ChangeModal = ({
   );
 };
 
-export default connect(({ example }) => ({
+export default connect(({ example, user }) => ({
   example,
+  user,
 }))(ChangeModal);

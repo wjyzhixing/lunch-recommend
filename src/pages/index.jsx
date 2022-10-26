@@ -1,5 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Table, Button, Popconfirm, message, Rate, Tag } from 'antd';
+import {
+  Table,
+  Button,
+  Popconfirm,
+  message,
+  Rate,
+  Tag,
+  Layout,
+  Menu,
+} from 'antd';
+import 'antd/dist/antd.css';
+import { SettingOutlined } from '@ant-design/icons';
+
 import ExampleModal from '@/components/exampleModal/index';
 import ChangeModal from '@/components/changeModal/index';
 import RandomModal from '@/components/randomModal/index';
@@ -10,14 +22,26 @@ import * as echarts from 'echarts/core';
 
 import { connect } from 'umi';
 import styles from './index.less';
+import InfoModal from '../components/InfoModal';
+const { Header, Content, Footer } = Layout;
+
 // import solarLunar from 'solarLunar';
 // import moment from 'moment';
-
+const items = [
+  { label: '首页', key: '首页' }, // 菜单项务必填写 key
+  // { label: '菜单项二', key: 'item-2' },
+  // {
+  //   label: '子菜单',
+  //   key: 'submenu',
+  //   children: [{ label: '子菜单项', key: 'submenu-item-1' }],
+  // },
+];
 function IndexPage(props) {
   const [dataSource, setDataSource] = useState([]);
   const [changeVisiable, setChangeVisiable] = useState(false);
   const [randomVisiable, setRandomVisiable] = useState(false);
   const [loginVisiable, setLoginVisiable] = useState(true);
+  const [infoVisiable, setInfoVisiable] = useState(false);
   const [obj, setObj] = useState({});
   const [title, setTitle] = useState('');
   const [userlog, setUserlog] = useState(null);
@@ -306,87 +330,134 @@ function IndexPage(props) {
   // };
 
   return (
-    <div className={styles.root}>
-      <div className={styles.title}>
-        <div className={styles.titleEffect}>今天吃什么</div>
-      </div>
-      <ExampleModal
-        onSubmit={onSubmit}
-        onRandom={onRandom}
-        openModal={openModal}
-        initQuery={initQuery}
-        userlog={userlog}
-      />
-      <div className={styles.table}>
-        <Table
-          locale={{
-            cancelSort: '点击取消排序',
-            triggerAsc: '点击升序',
-            triggerDesc: '点击降序',
-          }}
-          dataSource={dataSource}
-          key={key}
-          columns={columns}
-          rowKey="_id"
-          scroll={{
-            x: 1500,
-          }}
-        />
-      </div>
-      <div style={{ paddingBottom: 10 }}>
-        <div className={styles.title}>已有餐饮类型分析图</div>
-        <LineChart id={'foodLine'} data={dataSource} />
-      </div>
-      <div style={{ paddingBottom: 50, margin: '0 auto' }}>
-        <div className={styles.title} onClick={() => download()}>
-          保存我们的二维码！
+    <Layout className={styles.root}>
+      <Header style={{ marginBottom: 20, padding: '0px 5px 0 10px' }}>
+        {/* <div className={styles.title}> */}
+        {/* <div className={styles.titleEffect}>今天吃什么</div> */}
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div style={{ display: 'flex' }}>
+            <div className={styles.titleAll}>今天吃什么?</div>
+            {/* </div> */}
+            {window.screen.width < 500 ? null : (
+              <div>
+                <Menu
+                  style={{ maxWidth: 200, minWidth: 100, marginLeft: 20 }}
+                  theme="dark"
+                  mode="horizontal"
+                  defaultSelectedKeys={['首页']}
+                  items={items}
+                />
+              </div>
+            )}
+          </div>
+          <div style={{ textAlign: 'right' }}>
+            <span style={{ color: 'yellow', alignItems: 'center' }}>
+              {userlog && `${userlog}您好`}
+            </span>
+            <Button
+              type="link"
+              style={{ color: '#fff', alignItems: 'center' }}
+              onClick={() => setInfoVisiable(true)}
+            >
+              <SettingOutlined style={{ fontSize: 20 }} />
+            </Button>
+          </div>
         </div>
-        <div style={{ textAlign: 'center' }}>
-          <QRCode
-            id="share_qr_code_url"
-            value={'http://43.143.38.230:8080/dist/#/'} //value参数为生成二维码的链接 我这里是由后端返回
-            size={200} //二维码的宽高尺寸
-            fgColor="skyblue" //二维码的颜色
+      </Header>
+      <Content>
+        <div>
+          <ExampleModal
+            onSubmit={onSubmit}
+            onRandom={onRandom}
+            openModal={openModal}
+            initQuery={initQuery}
+            userlog={userlog}
           />
-          {/* <a href={base}>download</a> */}
-          {/* <QRCode
+          <div className={styles.table}>
+            <Table
+              locale={{
+                cancelSort: '点击取消排序',
+                triggerAsc: '点击升序',
+                triggerDesc: '点击降序',
+              }}
+              dataSource={dataSource}
+              key={key}
+              columns={columns}
+              rowKey="_id"
+              scroll={{
+                x: 1500,
+              }}
+            />
+          </div>
+          <div style={{ paddingBottom: 10 }}>
+            <div className={styles.title}>已有餐饮类型分析图</div>
+            <LineChart id={'foodLine'} data={dataSource} />
+          </div>
+          <div style={{ paddingBottom: 50, margin: '0 auto' }}>
+            <div className={styles.title} onClick={() => download()}>
+              保存我们的二维码！
+            </div>
+            <div style={{ textAlign: 'center' }}>
+              <QRCode
+                id="share_qr_code_url"
+                value={'http://43.143.38.230:8080/dist/#/'} //value参数为生成二维码的链接 我这里是由后端返回
+                size={200} //二维码的宽高尺寸
+                fgColor="skyblue" //二维码的颜色
+              />
+              {/* <a href={base}>download</a> */}
+              {/* <QRCode
             id="conclusion_qr_code_url"
             value={base} //value参数为生成二维码的链接 我这里是由后端返回
             size={200} //二维码的宽高尺寸
             fgColor="skyblue" //二维码的颜色
           /> */}
+            </div>
+          </div>
+          {changeVisiable && (
+            <ChangeModal
+              visiable={changeVisiable}
+              close={() => setChangeVisiable(false)}
+              obj={obj}
+              initQuery={initQuery}
+              title={title}
+              userlog={userlog}
+            />
+          )}
+          {randomVisiable && (
+            <RandomModal
+              visiable={randomVisiable}
+              close={() => setRandomVisiable(false)}
+              title={title}
+              userlog={userlog}
+            />
+          )}
+          {loginVisiable && (
+            <LoginModal
+              visiable={loginVisiable}
+              close={() => setLoginVisiable(false)}
+              initQuery={initQuery}
+              setUserlog={setUserlog}
+            />
+          )}
+          {infoVisiable && (
+            <InfoModal
+              visiable={infoVisiable}
+              close={() => setInfoVisiable(false)}
+            />
+          )}
         </div>
-      </div>
+      </Content>
       <div className={styles.fix}>
         版权所有 &copy;2022 wjy. All rights reserved.
       </div>
-      {changeVisiable && (
-        <ChangeModal
-          visiable={changeVisiable}
-          close={() => setChangeVisiable(false)}
-          obj={obj}
-          initQuery={initQuery}
-          title={title}
-          userlog={userlog}
-        />
-      )}
-      {randomVisiable && (
-        <RandomModal
-          visiable={randomVisiable}
-          close={() => setRandomVisiable(false)}
-          title={title}
-          userlog={userlog}
-        />
-      )}
-      {loginVisiable && (
-        <LoginModal
-          visiable={loginVisiable}
-          close={() => setLoginVisiable(false)}
-          initQuery={initQuery}
-          setUserlog={setUserlog}
-        />
-      )}
-    </div>
+      {/* <Footer
+        style={{
+          textAlign: 'center',
+        }}
+      >
+
+      </Footer> */}
+    </Layout>
   );
 }
 

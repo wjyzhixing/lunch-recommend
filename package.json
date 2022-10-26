@@ -1,4 +1,7 @@
 {
+  "name": "lunch-command",
+  "version": "1.1.0",
+  "description": "推荐今天吃什么前端代码",
   "private": true,
   "scripts": {
     "start": "umi dev",
@@ -20,7 +23,9 @@
     ]
   },
   "dependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@ant-design/pro-layout": "^6.5.0",
+    "antd": "^4.23.6",
     "echarts": "^5.4.0",
     "moment": "^2.29.1",
     "qrcode.react": "^3.1.0",

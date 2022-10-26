@@ -44,6 +44,7 @@ const LoginModal = ({
           dispatch({
             type: 'user/update',
             username: res?.username,
+            id: r?.data?.id,
           });
           console.log(r);
           sessionStorage.setItem('token', r?.data?.token);
