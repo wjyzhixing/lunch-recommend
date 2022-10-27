@@ -2,13 +2,16 @@ import { Form, Input, Button, Modal, message, Radio } from 'antd';
 import { useEffect, useState } from 'react';
 import { connect } from 'umi';
 import { showUserInfo, updateUserInfo } from '../../services/user';
+import { decryptByDES } from '../../utils/crypto';
 const InfoModal = ({ visiable, close, dispatch, userlog, title, user }) => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   console.log(user);
   useEffect(() => {
     setIsModalVisible(visiable);
-    showUserInfo({ id: user?.id }).then((res) => {
+    showUserInfo({
+      id: user?.id || decryptByDES(sessionStorage.getItem('id'), '123'),
+    }).then((res) => {
       console.log(res.data);
       if (res?.code === 0) {
         form.setFieldsValue({

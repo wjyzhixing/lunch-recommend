@@ -27,6 +27,7 @@ import * as echarts from 'echarts/core';
 import { connect } from 'umi';
 import styles from './index.less';
 import InfoModal from '../components/InfoModal';
+import { decryptByDES } from '../utils/crypto';
 const { Header, Content, Footer } = Layout;
 
 // import solarLunar from 'solarLunar';
@@ -191,8 +192,17 @@ function IndexPage(props) {
 
   useEffect(() => {
     // initQuery();
+    if (sessionStorage.getItem('token') && sessionStorage.getItem('user')) {
+      setLoginVisiable(false);
+      initQuery(sessionStorage.getItem('user'));
+      setUserlog(sessionStorage.getItem('user'));
+      dispatch({
+        type: 'user/update',
+        username: sessionStorage.getItem('username'),
+        id: decryptByDES(sessionStorage.getItem('id'), '123'),
+      });
+    }
     return () => {
-      console.log(1);
       sessionStorage.clear();
     };
   }, []);
@@ -426,7 +436,7 @@ function IndexPage(props) {
           </div>
           <div style={{ paddingBottom: 50, margin: '0 auto' }}>
             <div className={styles.title} onClick={() => download()}>
-              保存我们的二维码！
+              保存我们的二维码
             </div>
             <div style={{ textAlign: 'center' }}>
               <QRCode
