@@ -9,6 +9,7 @@ const InfoModal = ({ visiable, close, dispatch, userlog, title, user }) => {
   console.log(user);
   useEffect(() => {
     setIsModalVisible(visiable);
+    if (!sessionStorage.getItem('id')) return;
     showUserInfo({
       id: user?.id || decryptByDES(sessionStorage.getItem('id'), '123'),
     }).then((res) => {

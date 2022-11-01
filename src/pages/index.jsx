@@ -76,7 +76,7 @@ function IndexPage(props) {
         <div>
           <div style={{ display: 'inline-block', marginRight: 10 }}>{text}</div>
           {record?.ifExpensive ? (
-            <Tag color="#2db7f5">{record?.ifExpensive}</Tag>
+            <Tag color="#fd8c55">{record?.ifExpensive}</Tag>
           ) : null}
         </div>
       ),
@@ -194,12 +194,12 @@ function IndexPage(props) {
     // initQuery();
     if (sessionStorage.getItem('token') && sessionStorage.getItem('user')) {
       setLoginVisiable(false);
-      initQuery(sessionStorage.getItem('user'));
-      setUserlog(sessionStorage.getItem('user'));
+      initQuery(sessionStorage.getItem('user') || undefined);
+      setUserlog(sessionStorage.getItem('user') || undefined);
       dispatch({
         type: 'user/update',
         username: sessionStorage.getItem('username'),
-        id: decryptByDES(sessionStorage.getItem('id'), '123'),
+        id: decryptByDES(sessionStorage.getItem('id') || undefined, '123'),
       });
     }
     return () => {
@@ -357,7 +357,7 @@ function IndexPage(props) {
 
   return (
     <Layout className={styles.root}>
-      <Header style={{ marginBottom: 20, padding: '0px 5px 0 10px' }}>
+      <Header style={{ padding: '0px 5px 0 10px', zIndex: 1 }}>
         {/* <div className={styles.title}> */}
         {/* <div className={styles.titleEffect}>今天吃什么</div> */}
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -367,8 +367,14 @@ function IndexPage(props) {
             {window.screen.width < 500 ? null : (
               <div>
                 <Menu
-                  style={{ maxWidth: 200, minWidth: 100, marginLeft: 20 }}
-                  theme="dark"
+                  style={{
+                    maxWidth: 200,
+                    minWidth: 100,
+                    marginLeft: 20,
+                    background: '#ffc718',
+                    color: 'black',
+                  }}
+                  // theme="dark"
                   mode="horizontal"
                   defaultSelectedKeys={['首页']}
                   items={items}
@@ -377,22 +383,22 @@ function IndexPage(props) {
             )}
           </div>
           <div style={{ textAlign: 'right' }}>
-            <span
-              style={{ color: 'yellow', alignItems: 'center', fontSize: 18 }}
-            >
+            <span style={{ color: '#000', alignItems: 'center', fontSize: 18 }}>
               {userlog && `${userlog}您好`}
             </span>
+            {userlog && (
+              <Button
+                type="link"
+                style={{ color: '#000', alignItems: 'center', marginRight: 5 }}
+                shape="circle"
+                onClick={() => setInfoVisiable(true)}
+              >
+                <SettingOutlined style={{ fontSize: 20 }} />
+              </Button>
+            )}
             <Button
               type="link"
-              style={{ color: '#fff', alignItems: 'center', marginRight: 5 }}
-              shape="circle"
-              onClick={() => setInfoVisiable(true)}
-            >
-              <SettingOutlined style={{ fontSize: 20 }} />
-            </Button>
-            <Button
-              type="link"
-              style={{ color: '#fff', alignItems: 'center', marginRight: 5 }}
+              style={{ color: '#000', alignItems: 'center', marginRight: 5 }}
               shape="circle"
               onClick={() => log()}
             >
@@ -406,7 +412,28 @@ function IndexPage(props) {
         </div>
       </Header>
       <Content>
-        <div>
+        <div
+          style={{
+            background: '#ff9a01',
+            height: 150,
+            position: 'sticky',
+            zIndex: 2,
+          }}
+        >
+          <div className={styles.pic}></div>
+        </div>
+        <div
+          style={{
+            border: '1px solid #efefef',
+            width: '80%',
+            margin: '0 auto',
+            background: '#fff',
+            borderRadius: 20,
+            position: 'relative',
+            top: -40,
+            zIndex: 3,
+          }}
+        >
           <ExampleModal
             onSubmit={onSubmit}
             onRandom={onRandom}
@@ -443,7 +470,7 @@ function IndexPage(props) {
                 id="share_qr_code_url"
                 value={'http://43.143.38.230:8080/dist/#/'} //value参数为生成二维码的链接 我这里是由后端返回
                 size={200} //二维码的宽高尺寸
-                fgColor="skyblue" //二维码的颜色
+                fgColor="#ffbf04" //二维码的颜色
               />
               {/* <a href={base}>download</a> */}
               {/* <QRCode
