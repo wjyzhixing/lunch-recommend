@@ -415,7 +415,7 @@ function IndexPage(props) {
         <div
           style={{
             background: '#ff9a01',
-            height: 150,
+            height: window.screen.width < 500 ? 100 : 150,
             position: 'sticky',
             zIndex: 2,
           }}

@@ -58,7 +58,7 @@ const ExampleModal = ({
           onClick={() => setChangeVisiable(true)}
           style={{
             border: 'none',
-            fontSize: window.screen.width < 500 ? 15 : 20,
+            fontSize: window.screen.width < 500 ? 13 : 20,
           }}
           className={styles.blink}
           size={window.screen.width < 500 ? 'small' : 'middle'}
@@ -73,7 +73,7 @@ const ExampleModal = ({
           className={styles.blink}
           style={{
             border: 'none',
-            fontSize: window.screen.width < 500 ? 15 : 20,
+            fontSize: window.screen.width < 500 ? 13 : 20,
           }}
           size={window.screen.width < 500 ? 'small' : 'middle'}
         >
@@ -87,7 +87,7 @@ const ExampleModal = ({
           className={styles.blink}
           style={{
             border: 'none',
-            fontSize: window.screen.width < 500 ? 15 : 20,
+            fontSize: window.screen.width < 500 ? 13 : 20,
           }}
           size={window.screen.width < 500 ? 'small' : 'middle'}
         >
