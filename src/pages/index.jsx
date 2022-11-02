@@ -357,7 +357,7 @@ function IndexPage(props) {
 
   return (
     <Layout className={styles.root}>
-      <Header style={{ padding: '0px 5px 0 10px', zIndex: 1 }}>
+      <Header style={{ padding: '0px 5px 0 10px', zIndex: 10 }}>
         {/* <div className={styles.title}> */}
         {/* <div className={styles.titleEffect}>今天吃什么</div> */}
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -420,7 +420,11 @@ function IndexPage(props) {
             zIndex: 2,
           }}
         >
-          <div className={styles.pic}></div>
+          {/* <div className={styles.pic}>为了解决吃什么的困扰</div> */}
+          <div
+            className={styles.pic}
+            style={{ bottom: window.screen.width < 500 ? 30 : 40 }}
+          ></div>
         </div>
         <div
           style={{
