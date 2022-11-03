@@ -33,7 +33,8 @@ https://github.com/wjyzhixing/lunch-recommend-backend/
 
 ## 项目功能
 
-<img width="536" alt="image" src="https://user-images.githubusercontent.com/36620969/197972703-f33b6ca9-56c5-42a7-bf6e-a8974cb631c0.png">
+![image](https://user-images.githubusercontent.com/36620969/199630828-4f7aaa13-f003-4520-971c-b92c7764d9fd.png)
+
 
 ## 启动与打包
 
