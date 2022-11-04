@@ -10,7 +10,7 @@ import {
 } from 'antd';
 import { useEffect, useState } from 'react';
 import { connect } from 'umi';
-import { addTagIfExpensive } from '../../services/example';
+import { addTagIfExpensive } from '../../../../services/food';
 const { Option } = Select;
 const ChangeModal = ({
   visiable,
@@ -37,7 +37,7 @@ const ChangeModal = ({
         console.log(values);
         if (title === '添加一个') {
           dispatch({
-            type: 'example/addMyWifeFood',
+            type: 'food/addMyWifeFood',
             payload: {
               ...values,
               user: userlog,
@@ -67,7 +67,7 @@ const ChangeModal = ({
           });
         } else {
           dispatch({
-            type: 'example/updateMyWifeFood',
+            type: 'food/updateMyWifeFood',
             payload: {
               ...values,
               id: obj?._id,
@@ -211,7 +211,7 @@ const ChangeModal = ({
   );
 };
 
-export default connect(({ example, user }) => ({
-  example,
+export default connect(({ food, user }) => ({
+  food,
   user,
 }))(ChangeModal);

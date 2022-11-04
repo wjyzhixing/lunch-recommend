@@ -1,8 +1,8 @@
 import { Form, Input, Button, Modal, message, Radio } from 'antd';
 import { useEffect, useState } from 'react';
 import { connect } from 'umi';
-import { showUserInfo, updateUserInfo } from '../../services/user';
-import { decryptByDES } from '../../utils/crypto';
+import { showUserInfo, updateUserInfo } from '../../../../services/user';
+import { decryptByDES } from '../../../../utils/crypto';
 const InfoModal = ({ visiable, close, dispatch, userlog, title, user }) => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -140,7 +140,7 @@ const InfoModal = ({ visiable, close, dispatch, userlog, title, user }) => {
   );
 };
 
-export default connect(({ example, user }) => ({
-  example,
+export default connect(({ food, user }) => ({
+  food,
   user,
 }))(InfoModal);

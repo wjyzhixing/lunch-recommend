@@ -2,7 +2,7 @@ import { Form, Input, Button, Modal, InputNumber, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { login, registry } from '@/services/user';
 import { connect } from 'umi';
-import { encryptByDES } from '../../utils/crypto';
+import { encryptByDES } from '../../../../utils/crypto';
 const LoginModal = ({
   visiable,
   close,

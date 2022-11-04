@@ -5,10 +5,10 @@ import {
   updateMyWifeFood,
   recommendMyWifeFood,
   deleteTag,
-} from '@/services/example';
+} from '@/services/food';
 
 export default {
-  namespace: 'example',
+  namespace: 'food',
   state: {
     list: [],
   },

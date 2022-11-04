@@ -4,7 +4,22 @@ export default defineConfig({
   nodeModulesTransform: {
     type: 'none',
   },
-  routes: [{ path: '/', component: '@/pages/index' }],
+  // treeShaking: true,
+
+  // plugins: [
+  //   // ref: https://umijs.org/plugin/umi-plugin-react.html
+  //   [
+  //     'umi-plugin-react',
+  //     {
+  //       antd: true,
+  //       dva: true,
+  //       dynamicImport: false,
+  //       title: 'umi',
+  //       dll: false,
+  //     },
+  //   ],
+  // ],
+  // routes: [{ path: '/', component: '@/pages/index' }],
   publicPath: './',
   history: {
     type: 'hash',

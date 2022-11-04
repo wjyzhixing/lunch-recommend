@@ -4,10 +4,10 @@ import {
   getRandomFoodList,
   updateRandomFoodList,
   recommendMyWifeFood,
-} from '@/services/example';
+} from '@/services/food';
 import { connect } from 'umi';
 
-const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
+const RandomModal = ({ visiable, close, obj, title, food, userlog }) => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(false);
@@ -22,7 +22,7 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
     return Math.floor(Math.random() * (max - min)) + min;
   };
 
-  console.log(example.list);
+  console.log(food.list);
 
   const handleCancel = () => {
     // setIsModalVisible(false);
@@ -30,7 +30,7 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
   };
 
   const randomList = () => {
-    const res = example?.list[rand(0, example?.list?.length || 0) || 0];
+    const res = food?.list[rand(0, food?.list?.length || 0) || 0];
     message.success({
       content: `今天试试来吃${res?.food || '鸡腿'}!`,
       key: 'randomList',
@@ -269,6 +269,6 @@ computedValue = (time, love) => {
   );
 };
 
-export default connect(({ example }) => ({
-  example,
+export default connect(({ food }) => ({
+  food,
 }))(RandomModal);

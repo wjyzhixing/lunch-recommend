@@ -10,7 +10,7 @@ import {
   message,
   Divider,
 } from 'antd';
-import ChangeModal from '@/components/changeModal/index';
+import ChangeModal from '../changeModal/index';
 import { useEffect, useState } from 'react';
 import styles from './index.less';
 const { Option } = Select;
