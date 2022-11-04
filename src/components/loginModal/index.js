@@ -2,7 +2,7 @@ import { Form, Input, Button, Modal, InputNumber, message } from 'antd';
 import { useEffect, useState } from 'react';
 import { login, registry } from '@/services/user';
 import { connect } from 'umi';
-
+import { encryptByDES } from '../../utils/crypto';
 const LoginModal = ({
   visiable,
   close,
@@ -44,9 +44,12 @@ const LoginModal = ({
           dispatch({
             type: 'user/update',
             username: res?.username,
+            id: r?.data?.id,
           });
           console.log(r);
           sessionStorage.setItem('token', r?.data?.token);
+          sessionStorage.setItem('user', res?.username);
+          sessionStorage.setItem('id', encryptByDES(r?.data?.id, '123'));
           initQuery(res?.username);
           setUserlog(res?.username);
           handleCancel();

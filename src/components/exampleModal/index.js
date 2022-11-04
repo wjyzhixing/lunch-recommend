@@ -8,9 +8,11 @@ import {
   Rate,
   Select,
   message,
+  Divider,
 } from 'antd';
 import ChangeModal from '@/components/changeModal/index';
 import { useEffect, useState } from 'react';
+import styles from './index.less';
 const { Option } = Select;
 const ExampleModal = ({
   onSubmit,
@@ -42,6 +44,56 @@ const ExampleModal = ({
 
   return (
     <>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-around',
+          width: '50%',
+          margin: '20px auto 0px',
+        }}
+      >
+        <Button
+          // type="danger"
+          shape="round"
+          onClick={() => setChangeVisiable(true)}
+          style={{
+            border: 'none',
+            fontSize: window.screen.width < 500 ? 13 : 20,
+          }}
+          className={styles.blink}
+          size={window.screen.width < 500 ? 'small' : 'middle'}
+        >
+          加一个！
+        </Button>
+        <Divider type="vertical" />
+        <Button
+          // type="primary"
+          shape="round"
+          onClick={random}
+          className={styles.blink}
+          style={{
+            border: 'none',
+            fontSize: window.screen.width < 500 ? 13 : 20,
+          }}
+          size={window.screen.width < 500 ? 'small' : 'middle'}
+        >
+          推荐一个!
+        </Button>
+        <Divider type="vertical" />
+        <Button
+          // type="primary"
+          shape="round"
+          onClick={openModal}
+          className={styles.blink}
+          style={{
+            border: 'none',
+            fontSize: window.screen.width < 500 ? 13 : 20,
+          }}
+          size={window.screen.width < 500 ? 'small' : 'middle'}
+        >
+          随机一个!
+        </Button>
+      </div>
       <Form
         form={form}
         name="basic"
@@ -54,13 +106,16 @@ const ExampleModal = ({
         // initialValues={{
         //   whichTime: '全部',
         // }}
+        style={{
+          marginTop: 20,
+        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
         size={window.screen.width < 500 ? 'small' : 'middle'}
       >
         <Row>
-          <Col xs={12} sm={8} md={8} lg={4} xl={5}>
+          <Col xs={12} sm={6} md={6} lg={4} xl={5}>
             <Form.Item
               label="食物"
               name="food"
@@ -71,10 +126,10 @@ const ExampleModal = ({
               //   },
               // ]}
             >
-              <Input />
+              <Input placeholder="请输入" />
             </Form.Item>
           </Col>
-          <Col xs={12} sm={8} md={8} lg={4} xl={5}>
+          <Col xs={12} sm={6} md={6} lg={4} xl={5}>
             <Form.Item
               label="次数"
               name="times"
@@ -85,10 +140,14 @@ const ExampleModal = ({
               //   },
               // ]}
             >
-              <InputNumber min={0} style={{ width: '100%' }} />
+              <InputNumber
+                min={0}
+                style={{ width: '100%' }}
+                placeholder="请输入"
+              />
             </Form.Item>
           </Col>
-          <Col xs={12} sm={8} md={8} lg={4} xl={5}>
+          <Col xs={12} sm={6} md={6} lg={4} xl={5}>
             <Form.Item
               label="哪餐"
               name="whichTime"
@@ -99,7 +158,7 @@ const ExampleModal = ({
               //   },
               // ]}
             >
-              <Select allowClear>
+              <Select allowClear placeholder="请选择">
                 <Option value="早餐">早餐</Option>
                 <Option value="午餐">午餐</Option>
                 <Option value="晚餐">晚餐</Option>
@@ -107,7 +166,7 @@ const ExampleModal = ({
               </Select>
             </Form.Item>
           </Col>
-          <Col xs={24} sm={8} md={8} lg={5} xl={6}>
+          <Col xs={12} sm={6} md={6} lg={4} xl={5}>
             <Form.Item
               label="喜爱程度"
               name="love"
@@ -124,7 +183,14 @@ const ExampleModal = ({
               //   },
               // ]}
             >
-              <Rate />
+              <Select placeholder="请选择">
+                <Option value="0">不喜欢</Option>
+                <Option value="1">一点点</Option>
+                <Option value="2">一般</Option>
+                <Option value="3">较喜欢</Option>
+                <Option value="4">很喜欢</Option>
+                <Option value="5">非常喜欢</Option>
+              </Select>
             </Form.Item>
           </Col>
           {/* <Col span={2}>
@@ -137,9 +203,14 @@ const ExampleModal = ({
             随机一个!
           </Button>
         </Col> */}
-        </Row>
-        <Row>
-          <Col span={22} style={{ textAlign: 'right' }}>
+          <Col
+            xs={24}
+            sm={2}
+            md={2}
+            lg={4}
+            xl={4}
+            style={{ textAlign: 'right' }}
+          >
             <Form.Item
               wrapperCol={{
                 span: 24,
@@ -154,34 +225,6 @@ const ExampleModal = ({
               >
                 {/* window.screen */}
                 查询
-              </Button>
-              <Button
-                type="primary"
-                shape="round"
-                onClick={() => setChangeVisiable(true)}
-                style={{ marginRight: 10 }}
-                size={window.screen.width < 500 ? 'small' : 'middle'}
-              >
-                加一个！
-              </Button>
-              <Button
-                type="primary"
-                danger
-                shape="round"
-                onClick={random}
-                style={{ marginRight: 10 }}
-                size={window.screen.width < 500 ? 'small' : 'middle'}
-              >
-                推荐一个!
-              </Button>
-              <Button
-                type="primary"
-                danger
-                shape="round"
-                onClick={openModal}
-                size={window.screen.width < 500 ? 'small' : 'middle'}
-              >
-                随机一个!
               </Button>
             </Form.Item>
           </Col>

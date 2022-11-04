@@ -39,3 +39,13 @@ export async function getRandomFoodList(param) {
 export async function updateRandomFoodList(param) {
   return fetch.post('/api/updateRandomFoodList', { data: param });
 }
+
+// 打标签
+export async function addTagIfExpensive(param) {
+  return fetch.post('/api/addTagIfExpensive', { data: param });
+}
+
+// 删除标签
+export async function deleteTag(param) {
+  return fetch.post('/api/deleteTag', { data: param });
+}

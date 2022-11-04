@@ -1,4 +1,4 @@
-# lunch-recommend 1.0.0
+# lunch-recommend 2.0.0
 
 ## lunch-recommend是什么？
 
@@ -10,6 +10,19 @@
 
 最后，在注册时候时候如果您想要获得想吃什么的邮件提醒，可以选择输入邮箱地址，我们将在每天的11:30和17:30进行邮件推送！
 
+## 相比1.0.0更新了什么？
+
+增加了用户修改信息，修改是否发送邮件功能
+
+增加了自定义推荐公式
+
+修改了web端和移动端样式
+
+增加了数据库定时备份
+
+修改了刷新页面登录信息问题
+
+增加了打标签功能
 
 ## lunch-recommend
 这是lunch-recommend项目的前端代码，后端代码请移步到：
@@ -20,7 +33,8 @@ https://github.com/wjyzhixing/lunch-recommend-backend/
 
 ## 项目功能
 
-<img width="605" alt="image" src="https://user-images.githubusercontent.com/36620969/196635055-3952f131-5a1d-497a-9626-f14dec399c44.png">
+![image](https://user-images.githubusercontent.com/36620969/199630828-4f7aaa13-f003-4520-971c-b92c7764d9fd.png)
+
 
 ## 启动与打包
 

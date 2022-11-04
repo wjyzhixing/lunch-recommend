@@ -1,20 +1,44 @@
 .root {
-  margin: 20px 0px;
+  // margin: 20px 0px;
+  background-color: #f8f6f7;
   // .title {
   //   font-size: 25px;
   //   color: blue;
   //   text-align: center;
   //   margin: 20px;
   // }
+  .pic {
+    background: url(../../public/image/2.webp);
+    width: 60%;
+    height: 100%;
+    margin: 0 auto;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    z-index: 1;
+  }
   .table {
     margin: 10px;
   }
+  .titleAll {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-weight: 600;
+    font-size: 25px;
+    padding-left: 10px;
+  }
   .title {
-    height: 50px;
+    // height: 50px;
+    // line-height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     color: skyblue;
+    font-size: 25px;
+    // font-size: 0.8rem;
     // border: 1px solid red;
   }
   .titleEffect {
@@ -49,7 +73,7 @@
     width: 100%;
     vertical-align: middle;
     text-align: center;
-    z-index: 2;
+    z-index: 3;
     // background-color: #cfcfcf;
   }
 }
@@ -60,3 +84,56 @@
 //     flex: 1;
 //   }
 // }
+
+:global {
+  .site-layout-content {
+    min-height: 280px;
+    padding: 24px;
+    background: #000;
+  }
+  #components-layout-demo-top .logo {
+    float: left;
+    width: 120px;
+    height: 31px;
+    margin: 16px 24px 16px 0;
+    background: rgba(255, 255, 255, 0.3);
+  }
+  .ant-row-rtl #components-layout-demo-top .logo {
+    float: right;
+    margin: 16px 0 16px 24px;
+  }
+  .ant-layout-header {
+    background: #ffc718;
+  }
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item:hover,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu:hover,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-active,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-active,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-open,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-open,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item-selected,
+  .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu-selected {
+    color: black;
+    font-size: 20px;
+  }
+
+  .ant-btn-primary:hover,
+  .ant-btn-primary:focus {
+    background: #ffbf04;
+    border-color: #ffbf04;
+  }
+  .ant-btn-primary {
+    background: #ffbf04;
+    border-color: #ffbf04;
+    color: #000;
+  }
+
+  .ant-btn-link {
+    color: #ff9a01;
+  }
+
+  .ant-btn-link:hover,
+  .ant-btn-link:focus {
+    color: #ff9a01;
+  }
+}

@@ -9,3 +9,13 @@ export async function login(param) {
 export async function registry(param) {
   return extend.post('/api/registry', { data: param });
 }
+
+// 请求个人信息
+export async function showUserInfo(param) {
+  return extend.post('/api/showUserInfo', { data: param });
+}
+
+// 修改个人信息
+export async function updateUserInfo(param) {
+  return extend.post('/api/updateUserInfo', { data: param });
+}

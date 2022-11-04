@@ -1,12 +1,18 @@
 import { Form, Input, Button, Modal, InputNumber, message } from 'antd';
 import { useEffect, useState } from 'react';
-import { getRandomFoodList, updateRandomFoodList } from '@/services/example';
+import {
+  getRandomFoodList,
+  updateRandomFoodList,
+  recommendMyWifeFood,
+} from '@/services/example';
 import { connect } from 'umi';
 
 const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(false);
+  const [areaShow, setAreaShow] = useState(false);
+  const [changeTrue, setChangeTrue] = useState(true);
 
   useEffect(() => {
     setIsModalVisible(visiable);
@@ -58,6 +64,7 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
   };
 
   const getRandomFoodListFunc = () => {
+    setAreaShow(false);
     getRandomFoodList({ user: userlog }).then((res) => {
       console.log(res);
       if (res?.result === 'success') {
@@ -67,6 +74,11 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
         });
       }
     });
+  };
+
+  const changeRule = () => {
+    setShow(false);
+    setAreaShow(true);
   };
 
   const changeList = () => {
@@ -83,6 +95,35 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
       message.info('请检查食物列表的格式哈');
     }
   };
+
+  const changeTest = () => {
+    const rule = form.getFieldsValue()?.rule;
+    console.log(rule);
+    try {
+      new Function('return ' + rule)()(0, 0);
+      message.success('函数合法');
+      setChangeTrue(false);
+    } catch (e) {
+      console.log(e);
+      message.error('函数有误');
+      setChangeTrue(true);
+    }
+  };
+
+  const recommendTest = () => {
+    const rule = form.getFieldsValue()?.rule;
+    recommendMyWifeFood({ user: userlog, rule }).then((res) => {
+      console.log(res);
+      if (res?.code === 0) {
+        message.success({
+          content: `今天推荐来吃${res?.data || '鸡腿'}!`,
+          key: 'key！',
+          duration: 2,
+        });
+      }
+    });
+  };
+
   return (
     <Modal
       visible={isModalVisible}
@@ -100,13 +141,21 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
           真·随机选一个！
         </Button>
         <Button
+          style={{ marginRight: 20 }}
           onClick={() => getRandomFoodListFunc()}
           size={window.screen.width < 500 ? 'small' : 'middle'}
         >
           我要重新筛！
         </Button>
+        <Button
+          style={{ marginRight: 20 }}
+          onClick={() => changeRule()}
+          size={window.screen.width < 500 ? 'small' : 'middle'}
+        >
+          修改规则选一个！
+        </Button>
       </div>
-      <div style={{ margin: '20px 0px' }}>
+      <div style={{ margin: '10px 0px' }}>
         {show && (
           <Form
             name="basic"
@@ -150,6 +199,69 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
             >
               修改一下备用列表！
             </Button>
+          </Form>
+        )}
+        {areaShow && (
+          <Form
+            name="basic"
+            form={form}
+            onChange={(e) => setChangeTrue(true)}
+            labelCol={{
+              span: 6,
+            }}
+            wrapperCol={{
+              span: 16,
+            }}
+            initialValues={{
+              rule: `
+/**
+ * @param Number {times} 吃的次数
+ * @param Number {love} 喜爱程度
+ * @return Number 数值越大越为推荐食物
+ * 提交时候删除注释
+ */
+computedValue = (time, love) => {
+  return (Math.pow(2, love) / (1 + time));
+}
+              `,
+            }}
+            autoComplete="off"
+            size={window.screen.width < 500 ? 'small' : 'middle'}
+          >
+            <div style={{ margin: '0 5px 10px', color: ' #acacac' }}>
+              注意time和love形参顺序不可改变，记得提交测试删除注释
+            </div>
+            <Form.Item
+              label="输入规则函数"
+              name="rule"
+              rules={[
+                {
+                  required: true,
+                  message: '打个输入规则函数哈!',
+                },
+              ]}
+            >
+              <Input.TextArea placeholder="输入规则函数~" rows={12} />
+            </Form.Item>
+            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+              <Button
+                type="primary"
+                onClick={() => changeTest()}
+                style={{ marginRight: '30px' }}
+                size={window.screen.width < 500 ? 'small' : 'middle'}
+              >
+                修改语句测试！
+              </Button>
+              <Button
+                type="primary"
+                onClick={() => recommendTest()}
+                style={{ marginRight: '30px' }}
+                disabled={changeTrue}
+                size={window.screen.width < 500 ? 'small' : 'middle'}
+              >
+                推荐！
+              </Button>
+            </div>
           </Form>
         )}
       </div>
