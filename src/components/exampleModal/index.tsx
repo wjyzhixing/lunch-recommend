@@ -5,15 +5,16 @@ import {
   Row,
   Col,
   InputNumber,
-  Rate,
   Select,
-  message,
   Divider,
 } from 'antd';
+import { useState } from 'react';
 import ChangeModal from '@/components/changeModal/index';
-import { useEffect, useState } from 'react';
+
 import styles from './index.less';
+
 const { Option } = Select;
+
 const ExampleModal = ({
   onSubmit,
   onRandom,
@@ -29,13 +30,10 @@ const ExampleModal = ({
   //   })
   // },[])
   const onFinish = (values) => {
-    console.log('Success:', values);
     onSubmit(values, form);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
 
   const random = () => {
     onRandom();

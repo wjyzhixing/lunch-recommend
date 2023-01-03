@@ -9,32 +9,41 @@ import {
   Select,
 } from 'antd';
 import { useEffect, useState } from 'react';
-import { connect } from 'umi';
-import { addTagIfExpensive } from '../../services/example';
+import { Dispatch, useDispatch } from 'umi';
+import { addTagIfExpensive } from '@/services/example';
+import { HttpResult } from '@/types/HttpResult';
+
 const { Option } = Select;
-const ChangeModal = ({
+
+interface IProps {
+  visiable: boolean;
+  obj?: Record<string, any>;
+  userlog: string | null;
+  title: string;
+  close: () => void;
+  initQuery: Function;
+}
+
+export default function ChangeModal({
   visiable,
   close,
   obj,
-  dispatch,
   initQuery,
   userlog,
   title,
-  user,
-}) => {
+}: IProps) {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  console.log(user);
+  const dispatch: Dispatch = useDispatch();
+
   useEffect(() => {
     setIsModalVisible(visiable);
-    console.log(obj);
   }, [visiable]);
 
   const handleOk = () => {
     form
       .validateFields()
       .then((values) => {
-        console.log(values);
         if (title === '添加一个') {
           dispatch({
             type: 'example/addMyWifeFood',
@@ -42,8 +51,7 @@ const ChangeModal = ({
               ...values,
               user: userlog,
             },
-          }).then((res) => {
-            console.log(res);
+          }).then((res: HttpResult) => {
             if (res?.code === 0) {
               form.resetFields();
               message.success('添加成功~');
@@ -72,7 +80,7 @@ const ChangeModal = ({
               ...values,
               id: obj?._id,
             },
-          }).then((res) => {
+          }).then((res: HttpResult) => {
             if (res?.result === 'success' && res?.code === 0) {
               message.success('修改成功~');
               initQuery(userlog);
@@ -84,9 +92,7 @@ const ChangeModal = ({
           });
         }
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
     // onSubmit(values);
   };
 
@@ -209,9 +215,4 @@ const ChangeModal = ({
       </Form>
     </Modal>
   );
-};
-
-export default connect(({ example, user }) => ({
-  example,
-  user,
-}))(ChangeModal);
+}
