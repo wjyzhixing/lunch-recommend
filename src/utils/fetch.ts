@@ -67,7 +67,6 @@ request.interceptors.request.use((url, options) => {
  */
 request.interceptors.response.use(async (response, options) => {
   const data = await response.clone().json();
-  console.log(data, 'data');
   if (data.code === -1) {
     message.info(data?.massage || '请检查登录信息');
     return;

@@ -15,11 +15,9 @@ const LineChart = (props) => {
   useEffect(() => {
     let myChart = echarts.init(document.getElementById(id));
     const value = data;
-    console.log(data);
     const dataX = data?.map((item) => item?.food);
     const dataTimes = data?.map((item) => item?.times);
     const dataLoves = data?.map((item) => item?.love);
-    console.log(dataX, 'dataX');
     myChart.setOption({
       // title: {
       //     text: '堆叠区域图'

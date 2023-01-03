@@ -1,81 +1,71 @@
-.root {
-  // margin: 20px 0px;
-  background-color: #f8f6f7;
-  // .title {
-  //   font-size: 25px;
-  //   color: blue;
-  //   text-align: center;
-  //   margin: 20px;
-  // }
-  .pic {
-    background: url(../../public/image/2.webp);
-    width: 60%;
-    height: 100%;
-    margin: 0 auto;
-    background-position: center center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    position: relative;
-    z-index: 1;
-  }
-  .table {
-    margin: 10px;
-  }
-  .titleAll {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #000;
-    font-weight: 600;
-    font-size: 25px;
-    padding-left: 10px;
-  }
-  .title {
-    // height: 50px;
-    // line-height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: skyblue;
-    font-size: 25px;
-    // font-size: 0.8rem;
-    // border: 1px solid red;
-  }
-  .titleEffect {
-    width: 22ch;
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 3px solid;
-    font-family: monospace;
-    font-size: 2em;
-    text-align: center;
-    animation: typing 2s steps(22), effect 0.5s step-end infinite alternate;
-  }
+.pic {
+  background: url(~@/assets/image/2.webp);
+  width: 60%;
+  height: 100%;
+  margin: 0 auto;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  z-index: 1;
+}
+.table {
+  margin: 10px;
+}
+.titleAll {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+  font-weight: 600;
+  font-size: 25px;
+  padding-left: 10px;
+}
+.title {
+  // height: 50px;
+  // line-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: skyblue;
+  font-size: 25px;
+  // font-size: 0.8rem;
+  // border: 1px solid red;
+}
+.titleEffect {
+  width: 22ch;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid;
+  font-family: monospace;
+  font-size: 2em;
+  text-align: center;
+  animation: typing 2s steps(22), effect 0.5s step-end infinite alternate;
+}
 
-  @keyframes typing {
-    from {
-      width: 0;
-    }
+@keyframes typing {
+  from {
+    width: 0;
   }
+}
 
-  @keyframes effect {
-    50% {
-      border-color: transparent;
-    }
+@keyframes effect {
+  50% {
+    border-color: transparent;
   }
+}
 
-  .fix {
-    height: 30px;
-    line-height: 30px;
-    bottom: 0;
-    position: fixed;
-    background: #eee;
-    width: 100%;
-    vertical-align: middle;
-    text-align: center;
-    z-index: 3;
-    // background-color: #cfcfcf;
-  }
+.fix {
+  height: 30px;
+  line-height: 30px;
+  bottom: 0;
+  position: fixed;
+  background: #eee;
+  width: 100%;
+  vertical-align: middle;
+  text-align: center;
+  z-index: 3;
+  // background-color: #cfcfcf;
 }
 
 // :global {

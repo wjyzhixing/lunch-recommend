@@ -1,19 +1,25 @@
 import { Form, Input, Button, Modal, message, Radio } from 'antd';
 import { useEffect, useState } from 'react';
-import { connect } from 'umi';
-import { showUserInfo, updateUserInfo } from '../../services/user';
-import { decryptByDES } from '../../utils/crypto';
-const InfoModal = ({ visiable, close, dispatch, userlog, title, user }) => {
+import { showUserInfo, updateUserInfo } from '@/services/user';
+import { decryptByDES } from '@/utils/crypto';
+import { UserState, useSelector } from 'umi';
+
+interface IProps {
+  visible: boolean;
+  close: () => void;
+}
+
+export default function InfoModal({ visible, close }: IProps) {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
-  console.log(user);
+  const user = useSelector((state: any) => state.user as UserState);
+
   useEffect(() => {
-    setIsModalVisible(visiable);
+    setIsModalVisible(visible);
     if (!sessionStorage.getItem('id')) return;
     showUserInfo({
       id: user?.id || decryptByDES(sessionStorage.getItem('id'), '123'),
     }).then((res) => {
-      console.log(res.data);
       if (res?.code === 0) {
         form.setFieldsValue({
           username: res?.data?.username,
@@ -23,13 +29,12 @@ const InfoModal = ({ visiable, close, dispatch, userlog, title, user }) => {
         });
       }
     });
-  }, [visiable]);
+  }, [visible]);
 
   const handleOk = () => {
     form
       .validateFields()
       .then((values) => {
-        console.log(values);
         updateUserInfo({ ...values, id: user?.id }).then((res) => {
           if (res?.code === 0) {
             form.resetFields();
@@ -43,9 +48,7 @@ const InfoModal = ({ visiable, close, dispatch, userlog, title, user }) => {
           }
         });
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
   const handleCancel = () => {
@@ -138,9 +141,4 @@ const InfoModal = ({ visiable, close, dispatch, userlog, title, user }) => {
       </Form>
     </Modal>
   );
-};
-
-export default connect(({ example, user }) => ({
-  example,
-  user,
-}))(InfoModal);
+}

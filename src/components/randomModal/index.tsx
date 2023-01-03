@@ -5,28 +5,39 @@ import {
   updateRandomFoodList,
   recommendMyWifeFood,
 } from '@/services/example';
-import { connect } from 'umi';
+import { ExampleState, useSelector } from 'umi';
 
-const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
+interface IProps {
+  visible: boolean;
+  title: string;
+  userlog: string | null;
+  onClose: () => void;
+}
+
+const rand = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min)) + min;
+};
+
+export default function RandomModal({
+  visible,
+  onClose,
+  title,
+  userlog,
+}: IProps) {
   const [form] = Form.useForm();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [show, setShow] = useState(false);
   const [areaShow, setAreaShow] = useState(false);
   const [changeTrue, setChangeTrue] = useState(true);
+  const example = useSelector((state: any) => state.example as ExampleState);
 
   useEffect(() => {
-    setIsModalVisible(visiable);
-  }, [visiable]);
-
-  const rand = (min, max) => {
-    return Math.floor(Math.random() * (max - min)) + min;
-  };
-
-  console.log(example.list);
+    setIsModalVisible(visible);
+  }, [visible]);
 
   const handleCancel = () => {
     // setIsModalVisible(false);
-    close();
+    onClose();
   };
 
   const randomList = () => {
@@ -40,11 +51,8 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
 
   const choose = () => {
     form.validateFields().then((res) => {
-      console.log(res);
       if (res?.food?.includes('，') && String(res?.food).trim() !== '') {
         const list = res?.food?.split('，');
-        console.log(res);
-        console.log(list);
         const result = list[rand(0, list?.length || 0) || 0];
         message.success({
           content: `今天试试来吃${result || '鸡腿'}!`,
@@ -66,7 +74,6 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
   const getRandomFoodListFunc = () => {
     setAreaShow(false);
     getRandomFoodList({ user: userlog }).then((res) => {
-      console.log(res);
       if (res?.result === 'success') {
         setShow(true);
         form.setFieldsValue({
@@ -98,13 +105,11 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
 
   const changeTest = () => {
     const rule = form.getFieldsValue()?.rule;
-    console.log(rule);
     try {
       new Function('return ' + rule)()(0, 0);
       message.success('函数合法');
       setChangeTrue(false);
     } catch (e) {
-      console.log(e);
       message.error('函数有误');
       setChangeTrue(true);
     }
@@ -113,7 +118,6 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
   const recommendTest = () => {
     const rule = form.getFieldsValue()?.rule;
     recommendMyWifeFood({ user: userlog, rule }).then((res) => {
-      console.log(res);
       if (res?.code === 0) {
         message.success({
           content: `今天推荐来吃${res?.data || '鸡腿'}!`,
@@ -165,9 +169,6 @@ const RandomModal = ({ visiable, close, obj, title, example, userlog }) => {
             }}
             wrapperCol={{
               span: 14,
-            }}
-            initialValues={{
-              ...obj,
             }}
             autoComplete="off"
             size={window.screen.width < 500 ? 'small' : 'middle'}
@@ -267,8 +268,4 @@ computedValue = (time, love) => {
       </div>
     </Modal>
   );
-};
-
-export default connect(({ example }) => ({
-  example,
-}))(RandomModal);
+}
